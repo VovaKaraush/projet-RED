@@ -1,6 +1,7 @@
 package main
 
 import "fmt"
+import "time"
 
 type Character struct {
 	nom string
@@ -51,7 +52,31 @@ func takePot(c Character) {
 			c.inventaire = append(c.inventaire[:index], c.inventaire[index+1])
 		}
 	} else {
-		fmt.Println("Pas de portion dans l'inventaire")
+		fmt.Println("Pas de potion dans l'inventaire")
+	}
+}
+
+func poisonPot(c Character) {
+	index := -1
+	for i, o := range c.inventaire {
+		if o == "potion poison" {
+			index = i
+		}
+	}
+	if index != -1 {
+        for i := 1; i <= 3; i++{
+			time.Sleep(1 * time.Second)
+			c.pv -= 10 
+			fmt.Print("Vie : ", c.pv, "/", c.pvMax, "\n")
+		}
+		
+		if index == len(c.inventaire)-1 {
+			c.inventaire = c.inventaire[:len(c.inventaire)-2]
+		} else {
+			c.inventaire = append(c.inventaire[:index], c.inventaire[index+1])
+		}
+	} else {
+		fmt.Println("Pas de potion dans l'inventaire")
 	}
 }
 
@@ -67,7 +92,6 @@ func main() {
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
-	c1 = isDead(c1)
-	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
-	takePot(c1)
+	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion",})
+	
 }
