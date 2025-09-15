@@ -96,13 +96,13 @@ func menu(c Character) bool {
 	fmt.Scan(&input)
 	fmt.Print("\n")
 	switch input {
-	case "Infos", "infos", "1":
+	case "Infos", "infos", "1", "inf":
 		displayInfo(c)
 		fmt.Print("\n")
-	case "Inventaire", "inventaire", "2":
+	case "Inventaire", "inventaire", "2", "inv":
 		accessInventory(c)
 		fmt.Print("\n")
-	case "Quitter", "quitter", "4":
+	case "Quitter", "quitter", "3", "q":
 		return true
 	}
 	return menu(c)
