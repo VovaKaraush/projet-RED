@@ -6,27 +6,28 @@ import (
 )
 
 type Character struct {
-	nom    string
-	classe string
-	niveau uint
-	pvMax  int
-	pv     int
-	skill
+	nom        string
+	classe     string
+	niveau     uint
+	pvMax      int
+	pv         int
+	skill      []string
 	inventaire []string
 }
 
-func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, inventaire []string) Character {
+func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire []string) Character {
 	return Character{
 		nom:        nom,
 		classe:     classe,
 		niveau:     niveau,
 		pvMax:      pvMax,
 		pv:         pv,
+		skill:      skill,
 		inventaire: inventaire,
 	}
 }
 func displayInfo(c Character) {
-	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n")
+	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\n")
 }
 
 func accessInventory(c Character) {
@@ -92,7 +93,7 @@ func isDead(c Character) Character {
 
 func menu(c Character) bool {
 	var input string
-	fmt.Println("Infos\nActions\nInventaire\nQuitter\n")
+	fmt.Println("Infos\nInventaire\nQuitter\n")
 	fmt.Scan(&input)
 	fmt.Print("\n")
 	switch input {
@@ -113,7 +114,7 @@ func main() {
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
 	fmt.Print("\n")
-	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
+	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"Coup de poing"}, []string{"potion", "potion", "potion"})
 	quitter := false
 	for quitter != true {
 		quitter = menu(c1)
