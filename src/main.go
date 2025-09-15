@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 	"time"
 )
 
@@ -109,10 +110,23 @@ func menu(c Character) bool {
 	return menu(c)
 }
 
+func capitalizeFirstLetter(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+	first := strings.ToUpper(string(s[0]))
+	rest := ""
+	if len(s) > 1 {
+		rest = strings.ToLower(s[1:])
+	}
+	return first + rest
+}
+
 func main() {
 	var n string
 	fmt.Print("Choisissez un nom : ")
-	fmt.Scanln(&n)
+	fmt.Scanln(n)
+	n = capitalizeFirstLetter(n)
 	fmt.Print("\n")
 	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"Coup de poing"}, []string{"potion", "potion", "potion"})
 	quitter := false
