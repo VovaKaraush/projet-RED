@@ -6,11 +6,12 @@ import (
 )
 
 type Character struct {
-	nom        string
-	classe     string
-	niveau     uint
-	pvMax      int
-	pv         int
+	nom    string
+	classe string
+	niveau uint
+	pvMax  int
+	pv     int
+	skill
 	inventaire []string
 }
 
@@ -84,7 +85,6 @@ func poisonPot(c Character) {
 
 func isDead(c Character) Character {
 	if c.pv <= 0 {
-
 		c.pv = c.pvMax / 2
 	}
 	return (c)
