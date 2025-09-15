@@ -88,10 +88,32 @@ func isDead(c Character) Character{
 	return(c)
 }
 
+func menu(c Character) bool{
+	var input string
+	fmt.Println("Infos\nInventaire\nQuitter\n")
+	fmt.Scan(&input)
+	fmt.Print("\n")
+	switch input {
+	case "Infos":
+		displayInfo(c)
+		fmt.Print("\n")
+	case "Inventaire":
+		accessInventory(c)
+		fmt.Print("\n")
+	case "Quitter":
+		return true
+	}
+	return menu(c)
+}
+
 func main() {
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
-	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion",})
-	
+	fmt.Print("\n")
+	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
+	quitter := false
+	for quitter != true {
+		quitter=menu(c1)
+	}
 }
