@@ -33,15 +33,13 @@ func accessInventory(c Character) {
 }
 
 func takePot(c Character) {
-	pot_dispo := false
-	index := 0
+	index := -1
 	for i, o := range c.inventaire {
 		if o == "potion" {
-			pot_dispo = true
-			index = i 
+			index = i
 		}
 	}
-	if pot_dispo {
+	if index != -1 {
 		c.pv += 50
 		if c.pv > c.pvMax {
 			c.pv = c.pvMax
