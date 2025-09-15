@@ -1,30 +1,32 @@
 package main
 
-import "fmt"
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Character struct {
-	nom string
-	classe string
-	niveau uint
-	pvMax int
-	pv int
+	nom        string
+	classe     string
+	niveau     uint
+	pvMax      int
+	pv         int
 	inventaire []string
 }
 
-func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, inventaire []string) Character{
+func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, inventaire []string) Character {
 	return Character{
-		nom: nom, 
-		classe: classe, 
-		niveau: niveau, 
-		pvMax: pvMax, 
-		pv: pv, 
+		nom:        nom,
+		classe:     classe,
+		niveau:     niveau,
+		pvMax:      pvMax,
+		pv:         pv,
 		inventaire: inventaire,
 	}
 }
 func displayInfo(c Character) {
 	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n")
-}              
+}
 
 func accessInventory(c Character) {
 	fmt.Println("Inventaire :")
@@ -64,12 +66,12 @@ func poisonPot(c Character) {
 		}
 	}
 	if index != -1 {
-        for i := 1; i <= 3; i++{
+		for i := 1; i <= 3; i++ {
 			time.Sleep(1 * time.Second)
-			c.pv -= 10 
+			c.pv -= 10
 			fmt.Print("Vie : ", c.pv, "/", c.pvMax, "\n")
 		}
-		
+
 		if index == len(c.inventaire)-1 {
 			c.inventaire = c.inventaire[:len(c.inventaire)-2]
 		} else {
@@ -80,27 +82,30 @@ func poisonPot(c Character) {
 	}
 }
 
-func isDead(c Character) Character{
-    if c.pv <= 0 {
-        
+func isDead(c Character) Character {
+	if c.pv <= 0 {
+
 		c.pv = c.pvMax / 2
 	}
-	return(c)
+	return (c)
 }
 
-func menu(c Character) bool{
+func menu(c Character) bool {
 	var input string
-	fmt.Println("Infos\nInventaire\nQuitter\n")
+	fmt.Println("Infos\nActions\nInventaire\nQuitter\n")
 	fmt.Scan(&input)
 	fmt.Print("\n")
 	switch input {
-	case "Infos":
+	case "Infos","infos",'1':
 		displayInfo(c)
 		fmt.Print("\n")
-	case "Inventaire":
+	case "Inventaire","inventaire","2":
 		accessInventory(c)
 		fmt.Print("\n")
-	case "Quitter":
+	case "Actions","actions","3":
+		fmt.Println("Prendre une Potion")
+		switch input
+	case "Quitter","quitter","4":
 		return true
 	}
 	return menu(c)
@@ -114,6 +119,6 @@ func main() {
 	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
 	quitter := false
 	for quitter != true {
-		quitter=menu(c1)
+		quitter = menu(c1)
 	}
 }
