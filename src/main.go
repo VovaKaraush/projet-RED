@@ -70,10 +70,5 @@ func main() {
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
 	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
-<<<<<<< HEAD
-	c1 = isDead(c1)
-	displayInfo(c1)
-=======
 	takePot(c1)
->>>>>>> eaf9fc2 (ajout de takePot)
 }
