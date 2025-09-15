@@ -69,6 +69,7 @@ func main() {
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
+	c1 = isDead(c1)
 	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"potion", "potion", "potion"})
 	takePot(c1)
 }
