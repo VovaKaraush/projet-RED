@@ -50,7 +50,7 @@ func characterCreation() Character{
 	for c != "1" && c != "2" && c != "3" {
 		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
 		fmt.Scanln(&c)
-		if c != "1" && c != "2" && c ! inv_marchand= "3" {
+		if c != "1" && c != "2" && c != "3" {
 			fmt.Println("Commande inconnue")
 		}
 	}
