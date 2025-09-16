@@ -59,7 +59,7 @@ func inputName() string {
 	if nameCheck(n) == true {
 		return capitalizeFirstLetter(n)
 	} else {
-		fmt.Println("Nom inacceptable. Veuillez utiliser seulement des lettres.")
+		fmt.Println("Nom inacceptable. Veuillez utiliser seulement des lettres. \n")
 		return inputName()
 	}
 }
