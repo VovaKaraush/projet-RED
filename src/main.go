@@ -2,9 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strings"
 	"time"
-	"strconv"
 )
 
 type Character struct {
@@ -14,22 +12,23 @@ type Character struct {
 	pvMax      int
 	pv         int
 	skill      []string
-	inventaire map[string]int
+	inventaire []string
 }
 
-func capitalizeFirstLetter(s string) string {
-	if len(s) == 0 {
-		return s
-	}
-	first := strings.ToUpper(string(s[0]))
-	rest := ""
-	if len(s) > 1 {
-		rest = strings.ToLower(s[1:])
-	}
-	return first + rest
+const maxInventaire = 10
+
+func addItem(c *Character, item string) bool {
+    if len(c.inventaire) >= maxInventaire {
+        fmt.Println("Inventaire plein ! Impossible d’ajouter :", item)
+        return false
+    }
+    c.inventaire = append(c.inventaire, item)
+    fmt.Println(item, "ajouté.")
+    return true
 }
 
-func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]int) Character {
+
+func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire []string) Character {
 	return Character{
 		nom:        nom,
 		classe:     classe,
@@ -40,199 +39,97 @@ func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []st
 		inventaire: inventaire,
 	}
 }
-
-func characterCreation() Character{
-	var n string
-	fmt.Print("Choisissez un nom : ")
-	fmt.Scanln(&n)
-	n = capitalizeFirstLetter(n)
-	var c string
-	for c != "1" && c != "2" && c != "3" {
-		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
-		fmt.Scanln(&c)
-		if c != "1" && c != "2" && c != "3" {
-			fmt.Println("Commande inconnue")
-		}
-	}
-	var pvMax int
-	switch c {
-	case "1":
-		c = "Humain"
-		pvMax = 100
-	case "2":
-		c = "Elfe"
-		pvMax = 80
-	case "3":
-		c = "Nain"
-		pvMax = 120
-	}
-	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3})
-}
-
-func addInventory(inv map[string]int, objet string) map[string]int{
-	inv[objet] += 1
-	return inv
-}
-
-func removeInventory(inv map[string]int, objet string) map[string]int{
-	if val, ok := inv[objet]; ok {
-		if val > 1 {
-			inv[objet] -= 1
-		} else {
-			delete(inv, objet)
-		}
-	}
-	return inv
-}
-
-func displayInfo(c *Character) {
+func displayInfo(c Character) {
 	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\n")
 }
 
-func accessInventory(c *Character) {
-	for {
-		if len(c.inventaire) == 0 {
-			fmt.Println("L'inventaire est vide")
-		} else {
-			i := 1
-			fmt.Println("Inventaire :")
-			for key, value := range c.inventaire {
-				fmt.Print(i, "-", key, " * ", value, "\n")
-				i += 1
-			}
-		}
-		fmt.Println("\n0-Retour\n")
-		var input string
-		fmt.Scan(&input)
-		index, err := strconv.Atoi(input)
-		index--
-		var keys []string
-		for key := range c.inventaire {
-			keys = append(keys, key)
-		}
-		if index == -1 && err == nil {
-			return
-		} else if index > -1 && index < len(keys) {
-			switch keys[index] {                   //appel des fonctions associées aux objets
-			case "Potion de vie":
-				takePot(c)
-			case "Potion de poison":
-				poisonPot(c)
-			case "Livre de sort : Boule de feu":
-				spellBook(c)
-			}
-		} else {
-			fmt.Println("Commande inconnue")
-		}
+func accessInventory(c Character) {
+	fmt.Println("Inventaire :")
+	for _, o := range c.inventaire {
+		fmt.Println(o)
 	}
 }
 
-func takePot(c *Character) {
-	if _, ok := c.inventaire["Potion de vie"]; ok {
+func takePot(c Character) {
+	index := -1
+	for i, o := range c.inventaire {
+		if o == "potion" {
+			index = i
+		}
+	}
+	if index != -1 {
 		c.pv += 50
 		if c.pv > c.pvMax {
 			c.pv = c.pvMax
 		}
 		fmt.Print("Vie : ", c.pv, "/", c.pvMax, "\n")
-		c.inventaire = removeInventory(c.inventaire, "Potion de vie")
+		if index == len(c.inventaire)-1 {
+			c.inventaire = c.inventaire[:len(c.inventaire)-2]
+		} else {
+			c.inventaire = append(c.inventaire[:index], c.inventaire[index+1])
+		}
 	} else {
-		fmt.Println("Pas de potion de vie dans l'inventaire")
+		fmt.Println("Pas de potion dans l'inventaire")
 	}
 }
 
-func poisonPot(c *Character) {
-	if _, ok := c.inventaire["Potion de poison"]; ok {
+func poisonPot(c Character) {
+	index := -1
+	for i, o := range c.inventaire {
+		if o == "potion poison" {
+			index = i
+		}
+	}
+	if index != -1 {
 		for i := 1; i <= 3; i++ {
 			time.Sleep(1 * time.Second)
 			c.pv -= 10
 			fmt.Print("Vie : ", c.pv, "/", c.pvMax, "\n")
 		}
-		c.inventaire = removeInventory(c.inventaire, "Potion de poison")
-	} else {
-		fmt.Println("Pas de potion de poison dans l'inventaire")
-	}
-}
 
-func spellBook(c *Character) {
-	found := false
-	for _, s := range c.skill {
-		if s == "Boule de feu" {
-			found = true
-			break
-		}
-	}
-	if !found {
-		c.skill = append(c.skill, "Boule de feu")
-		c.inventaire = removeInventory(c.inventaire, "Livre de sort : Boule de feu")
-	} else {
-		fmt.Println("Sort déjà appris")
-	}
-}
-
-func marchand(c *Character, inv_marchand map[string]int) map[string]int{
-	for {
-		if len(inv_marchand) == 0 {
-			fmt.Println("La boutique est vide")
+		if index == len(c.inventaire)-1 {
+			c.inventaire = c.inventaire[:len(c.inventaire)-2]
 		} else {
-			i := 1
-			for key, value := range inv_marchand {
-				fmt.Print(i, "-", key, " * ", value, "\n")
-				i += 1
-			}
+			c.inventaire = append(c.inventaire[:index], c.inventaire[index+1])
 		}
-		fmt.Println("\n0-Retour\n")
-		var input string
-		fmt.Scan(&input)
-		fmt.Print("\n")
-		index, err := strconv.Atoi(input)
-		var keys []string
-		for key := range inv_marchand {
-			keys = append(keys, key)
-		}
-		if index == 0 && err == nil {
-			return inv_marchand
-		} else if index > 0 && index <= len(keys) {
-			index--
-			fmt.Print(keys[index], "\n\n")
-			c.inventaire = addInventory(c.inventaire, keys[index])
-			inv_marchand = removeInventory(inv_marchand, keys[index])
-		} else {
-			fmt.Println("Commande inconnue")
-		}
+	} else {
+		fmt.Println("Pas de potion dans l'inventaire")
 	}
 }
 
-func isDead(c *Character) {
+func isDead(c Character) Character {
 	if c.pv <= 0 {
 		c.pv = c.pvMax / 2
 	}
+	return (c)
 }
 
-func menu(c *Character, inv_marchand map[string]int) {
-	for {
-		var input string
-		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n\n0-Quitter\n")
-		fmt.Scan(&input)
+func menu(c Character) bool {
+	var input string
+	fmt.Println("Infos\nInventaire\nQuitter\n")
+	fmt.Scan(&input)
+	fmt.Print("\n")
+	switch input {
+	case "Infos", "infos", "1", "inf":
+		displayInfo(c)
 		fmt.Print("\n")
-		switch input {
-		case "1":
-			displayInfo(c)
-			fmt.Print("\n")
-		case "2":
-			accessInventory(c)
-			fmt.Print("\n")
-		case "3":
-			inv_marchand = marchand(c, inv_marchand)
-		case "0":
-			return
-		default:
-			fmt.Println("Commande inconnue")
-		}
+	case "Inventaire", "inventaire", "2", "inv":
+		accessInventory(c)
+		fmt.Print("\n")
+	case "Quitter", "quitter", "3", "q":
+		return true
 	}
+	return menu(c)
 }
 
 func main() {
-	c1 := characterCreation()
-	inv_marchand := map[string]int{"Potion de vie": 1, "Potion de poison": 1, "Livre de sort : Boule de feu": 2}
-	menu(&c1, inv_marchand)
+	var n string
+	fmt.Print("Choisissez un nom : ")
+	fmt.Scanln(&n)
+	fmt.Print("\n")
+	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"Coup de poing"}, []string{"potion", "potion", "potion"})
+	quitter := false
+	for quitter != true {
+		quitter = menu(c1)
+	}
 }
