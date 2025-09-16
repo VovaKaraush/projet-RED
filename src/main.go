@@ -1,9 +1,16 @@
 package main
 
-import "https://github.com/VovaKaraush/projet-RED/tree/3b7ca2ddbd00ee24396800665bbd79673469b03e/src"
+import "main/modules"
 
 func main() {
-	c1 := characterCreation()
-	inv_marchand := map[string]int{"Potion de vie": 1, "Potion de poison": 1, "Livre de sort : Boule de feu": 2}
-	menu(&c1, inv_marchand)
+	c1 := modules.CharacterCreation()
+	inv_marchand := []string{
+		"Potion de vie", 
+		"Potion de poison", 
+		"Livre de sort : Boule de feu", 
+		"Fourrure de loup", 
+		"Peau de troll", 
+		"Cuir de sanglier", 
+		"Plume de corbeau",}
+	modules.Menu(&c1, inv_marchand)
 }
