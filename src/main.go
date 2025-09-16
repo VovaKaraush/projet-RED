@@ -12,7 +12,12 @@ type Character struct {
 	pvMax      int
 	pv         int
 	skill      []string
+<<<<<<< HEAD
 	inventaire []string
+=======
+	inventaire map[string]int
+	argent	   int
+>>>>>>> b12d2cb31ed98aba9650a14f614ee1716899a754
 }
 
 const maxInventaire = 10
@@ -27,8 +32,12 @@ func addItem(c *Character, item string) bool {
     return true
 }
 
+<<<<<<< HEAD
 
 func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire []string) Character {
+=======
+func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]int, argent int) Character {
+>>>>>>> b12d2cb31ed98aba9650a14f614ee1716899a754
 	return Character{
 		nom:        nom,
 		classe:     classe,
@@ -36,11 +45,62 @@ func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []st
 		pvMax:      pvMax,
 		pv:         pv,
 		skill:      skill,
-		inventaire: inventaire,
+		inventaire: inventaire, 
+		argent:		argent,
 	}
 }
+<<<<<<< HEAD
 func displayInfo(c Character) {
 	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\n")
+=======
+
+func characterCreation() Character{
+	var n string
+	fmt.Print("Choisissez un nom : ")
+	fmt.Scanln(&n)
+	n = capitalizeFirstLetter(n)
+	var c string
+	for c != "1" && c != "2" && c != "3" {
+		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
+		fmt.Scanln(&c)
+		if c != "1" && c != "2" && c != "3" {
+			fmt.Println("Commande inconnue")
+		}
+	}
+	var pvMax int
+	switch c {
+	case "1":
+		c = "Humain"
+		pvMax = 100
+	case "2":
+		c = "Elfe"
+		pvMax = 80
+	case "3":
+		c = "Nain"
+		pvMax = 120
+	}
+	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3}, 100)
+}
+
+func addInventory(inv map[string]int, objet string) map[string]int{
+	inv[objet] += 1
+	return inv
+}
+
+func removeInventory(inv map[string]int, objet string) map[string]int{
+	if val, ok := inv[objet]; ok {
+		if val > 1 {
+			inv[objet] -= 1
+		} else {
+			delete(inv, objet)
+		}
+	}
+	return inv
+}
+
+func displayInfo(c *Character) {
+	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\nargent : ", c.argent, "\n")
+>>>>>>> b12d2cb31ed98aba9650a14f614ee1716899a754
 }
 
 func accessInventory(c Character) {
