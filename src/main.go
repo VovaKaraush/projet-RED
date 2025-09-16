@@ -15,6 +15,7 @@ type Character struct {
 	pv         int
 	skill      []string
 	inventaire map[string]int
+	argent     int
 }
 
 func capitalizeFirstLetter(s string) string {
@@ -29,7 +30,7 @@ func capitalizeFirstLetter(s string) string {
 	return first + rest
 }
 
-func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]int) Character {
+func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]int, argent int) Character {
 	return Character{
 		nom:        nom,
 		classe:     classe,
@@ -38,6 +39,7 @@ func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []st
 		pv:         pv,
 		skill:      skill,
 		inventaire: inventaire,
+		argent:     argent,
 	}
 }
 
@@ -66,7 +68,7 @@ func characterCreation() Character {
 		c = "Nain"
 		pvMax = 120
 	}
-	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3})
+	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3}, 100)
 }
 
 func addInventory(inv map[string]int, objet string) map[string]int {
@@ -86,7 +88,7 @@ func removeInventory(inv map[string]int, objet string) map[string]int {
 }
 
 func displayInfo(c *Character) {
-	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "Skills :", c.skill, "\n")
+	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\nargent : ", c.argent, "\n")
 }
 
 func accessInventory(c *Character) {
@@ -165,7 +167,7 @@ func spellBook(c *Character) {
 		c.skill = append(c.skill, "Boule de feu")
 		c.inventaire = removeInventory(c.inventaire, "Livre de sort : Boule de feu")
 	} else {
-		fmt.Println("\nSort déjà appris\n")
+		fmt.Println("Sort déjà appris")
 	}
 }
 
