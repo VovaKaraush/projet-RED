@@ -57,9 +57,10 @@ func inputName() string {
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
 	if nameCheck(n) == true {
+		fmt.Println("\n")
 		return capitalizeFirstLetter(n)
 	} else {
-		fmt.Println("Nom inacceptable. Veuillez utiliser seulement des lettres. \n")
+		fmt.Println("\nNom inacceptable. Veuillez utiliser seulement des lettres. \n")
 		return inputName()
 	}
 }
@@ -106,7 +107,7 @@ func removeInventory(inv map[string]int, objet string) map[string]int {
 }
 
 func displayInfo(c *Character) {
-	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\nargent : ", c.argent, "\n")
+	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "Skills :", c.skill, "\nArgent : ", c.argent, "\n")
 }
 
 func accessInventory(c *Character) {
