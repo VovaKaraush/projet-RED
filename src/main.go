@@ -218,5 +218,5 @@ func main() {
 	fmt.Print("\n")
 	c1 := initCaracter(n, "Elfe", 1, 100, 40, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3})
 	inv_marchand := map[string]int{"Potion de vie": 1, "Potion de poison": 1, "Livre de sort : Boule de feu": 2}
-	menu(&c1, inv_marchand)
+	menu(c1)
 }
