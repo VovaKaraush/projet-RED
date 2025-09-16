@@ -56,7 +56,7 @@ func inputName() string {
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
-	if nameCheck(n) == true {
+	if nameCheck(n) {
 		fmt.Println("\n")
 		return capitalizeFirstLetter(n)
 	} else {
