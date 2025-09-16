@@ -18,6 +18,15 @@ type Character struct {
 	argent     int
 }
 
+func nameCheck(s string) bool {
+	for _, r := range s {
+		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') {
+			return false
+		}
+	}
+	return true
+}
+
 func capitalizeFirstLetter(s string) string {
 	if len(s) == 0 {
 		return s
@@ -43,11 +52,20 @@ func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []st
 	}
 }
 
-func characterCreation() Character {
+func inputName() string {
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
-	n = capitalizeFirstLetter(n)
+	if nameCheck(n) == true {
+		return capitalizeFirstLetter(n)
+	} else {
+		fmt.Println("Nom inacceptable. Veuillez utiliser seulement des lettres.")
+		return inputName()
+	}
+}
+
+func characterCreation() Character {
+	n := inputName()
 	var c string
 	for c != "1" && c != "2" && c != "3" {
 		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
