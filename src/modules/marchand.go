@@ -19,8 +19,13 @@ func marchand(c *Character, inv_marchand []string) []string{
 			return inv_marchand
 		} else if index > 0 && index <= len(inv_marchand) {
 			index--
-			fmt.Print(inv_marchand[index], "\n\n")
-			addInventory(c, inv_marchand[index])
+			if c.inventaire[inv_marchand[index]].prix <= c.argent {
+				fmt.Print(inv_marchand[index], "\n\n")
+				addInventory(c, inv_marchand[index])
+				c.argent -= c.inventaire[inv_marchand[index]].prix
+			} else {
+				fmt.Println("Pas assez d'argent")
+			}
 		} else {
 			fmt.Println("Commande inconnue")
 		}
