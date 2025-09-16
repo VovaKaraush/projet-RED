@@ -50,7 +50,7 @@ func characterCreation() Character{
 	for c != "1" && c != "2" && c != "3" {
 		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
 		fmt.Scanln(&c)
-		if c != "1" && c != "2" && c != "3" {
+		if c != "1" && c != "2" && c ! inv_marchand= "3" {
 			fmt.Println("Commande inconnue")
 		}
 	}
@@ -234,5 +234,5 @@ func menu(c *Character, inv_marchand map[string]int) {
 func main() {
 	c1 := characterCreation()
 	inv_marchand := map[string]int{"Potion de vie": 1, "Potion de poison": 1, "Livre de sort : Boule de feu": 2}
-	menu(c1)
+	menu(&c1, inv_marchand)
 }
