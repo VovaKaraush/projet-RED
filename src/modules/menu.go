@@ -1,32 +1,54 @@
 package modules // ce package va comporter tous les affichages
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-func menu(c Character) bool {
-	var input string
-	fmt.Print("Infos\nInventaire\nQuitter\n")
-	fmt.Scan(&input)
-	fmt.Print("\n")
-	switch input {
-	case "Infos", "infos", "1", "inf":
-		displayInfo(c)
+func menu(c *Character, inv_marchand map[string]int) {
+	for {
+		var input string
+		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n\n0-Quitter\n")
+		fmt.Scan(&input)
 		fmt.Print("\n")
-	case "Inventaire", "inventaire", "2", "inv":
-		accessInventory(c)
-		fmt.Print("\n")
-	case "Quitter", "quitter", "3", "q":
-		return true
+		switch input {
+		case "1":
+			displayInfo(c)
+			fmt.Print("\n")
+		case "2":
+			accessInventory(c)
+			fmt.Print("\n")
+		case "3":
+			inv_marchand = marchand(c, inv_marchand)
+		case "0":
+			return
+		default:
+			fmt.Println("Commande inconnue")
+		}
 	}
-	return menu(c)
 }
 
-func displayInfo(c Character) {
-	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "skills :", c.skill, "\n")
+func displayInfo(c *Character) {
+	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "Skills :", c.skill, "\nArgent : ", c.argent, "\n")
 }
 
-func accessInventory(c Character) {
-	fmt.Println("Inventaire :")
-	for _, o := range c.inventaire {
-		fmt.Println(o)
+func nameCheck(s string) bool {
+	for _, r := range s {
+		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') {
+			return false
+		}
 	}
+	return true
+}
+
+func capitalizeFirstLetter(s string) string {
+	if len(s) == 0 {
+		return s
+	}
+	first := strings.ToUpper(string(s[0]))
+	rest := ""
+	if len(s) > 1 {
+		rest = strings.ToLower(s[1:])
+	}
+	return first + rest
 }
