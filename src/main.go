@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"strconv"
 	"strings"
 	"time"
+	"strconv"
 )
 
 type Character struct {
@@ -41,7 +41,7 @@ func initCaracter(nom, classe string, niveau uint, pvMax int, pv int, skill []st
 	}
 }
 
-func characterCreation() Character {
+func characterCreation() Character{
 	var n string
 	fmt.Print("Choisissez un nom : ")
 	fmt.Scanln(&n)
@@ -50,7 +50,7 @@ func characterCreation() Character {
 	for c != "1" && c != "2" && c != "3" {
 		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
 		fmt.Scanln(&c)
-		if c != "1" && c != "2" && c != "3" {
+		if c != "1" && c != "2" && c ! inv_marchand= "3" {
 			fmt.Println("Commande inconnue")
 		}
 	}
@@ -66,15 +66,15 @@ func characterCreation() Character {
 		c = "Nain"
 		pvMax = 120
 	}
-	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"potion de vie": 3})
+	return initCaracter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, map[string]int{"Potion de vie": 3})
 }
 
-func addInventory(inv map[string]int, objet string) map[string]int {
+func addInventory(inv map[string]int, objet string) map[string]int{
 	inv[objet] += 1
 	return inv
 }
 
-func removeInventory(inv map[string]int, objet string) map[string]int {
+func removeInventory(inv map[string]int, objet string) map[string]int{
 	if val, ok := inv[objet]; ok {
 		if val > 1 {
 			inv[objet] -= 1
@@ -113,7 +113,7 @@ func accessInventory(c *Character) {
 		if index == -1 && err == nil {
 			return
 		} else if index > -1 && index < len(keys) {
-			switch keys[index] { //appel des fonctions associées aux objets
+			switch keys[index] {                   //appel des fonctions associées aux objets
 			case "Potion de vie":
 				takePot(c)
 			case "Potion de poison":
@@ -169,7 +169,7 @@ func spellBook(c *Character) {
 	}
 }
 
-func marchand(c *Character, inv_marchand map[string]int) map[string]int {
+func marchand(c *Character, inv_marchand map[string]int) map[string]int{
 	for {
 		if len(inv_marchand) == 0 {
 			fmt.Println("La boutique est vide")
