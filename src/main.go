@@ -2,7 +2,6 @@ package main
 
 import "main/modules"
 
-
 func main() {
 	c1 := modules.CharacterCreation()
 	inv_marchand := []string{

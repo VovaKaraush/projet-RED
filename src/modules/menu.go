@@ -33,7 +33,7 @@ func displayInfo(c *Character) {
 func Menu(c *Character, inv_marchand []string) {
 	for {
 		var input string
-		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n\n0-Quitter\n")
+		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n4-Combat\n\n0-Quitter\n")
 		fmt.Scan(&input)
 		fmt.Print("\n")
 		switch input {
@@ -45,6 +45,8 @@ func Menu(c *Character, inv_marchand []string) {
 			fmt.Print("\n")
 		case "3":
 			inv_marchand = marchand(c, inv_marchand)
+		case "4":
+			
 		case "0":
 			return
 		default:

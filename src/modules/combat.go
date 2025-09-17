@@ -15,4 +15,3 @@ func InitGoblin(nom string, pvMax int, dmg int) Monster {
 		dmg:   dmg,
 	}
 }
-
