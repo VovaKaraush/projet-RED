@@ -120,6 +120,15 @@ func equipArmor(c *Character, liste_armure map[string]Objet_Equipement, armure s
 	removeInventory(c, armure)
 }
 
+func upgradeInventorySlot(c *Character) {
+	if c.inv_taille < 40 {
+		c.inv_taille += 10
+		removeInventory(c, "Augmentation d'inventaire")
+	} else {
+		fmt.Println("L'inventaire ne peut plus être agrandi")
+	}
+}
+
 func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 	for {
 		found := false
@@ -156,6 +165,8 @@ func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 				poisonPot(c)
 			case "Livre de sort : Boule de feu":
 				spellBook(c)
+			case "Augmentation d'inventaire":
+				upgradeInventorySlot(c)
 			default:
 				equipArmor(c, liste_armure, keys[index])
 			}

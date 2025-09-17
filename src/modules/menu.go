@@ -27,7 +27,12 @@ func capitalizeFirstLetter(s string) string {
 }
 
 func displayInfo(c *Character) {
+	nb := 0
+	for _, value := range c.inventaire {
+		nb += value.quantite
+	}
 	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\n", "Skills :", c.skill, "\nArgent : ", c.argent, "\n")
+	fmt.Print("Inventaire : ", nb, "/", c.inv_taille, "\n")
 }
 
 func Menu(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equipement) {

@@ -69,13 +69,14 @@ func CharacterCreation() Character{
 		"Potion de vie": Objet{1, 3, 3, 1}, 
 		"Potion de poison": Objet{2, 0, 6, 1}, 
 		"Livre de sort : Boule de feu": Objet{3, 0, 25, 1}, 
-		"Chapeau de l'aventurier": Objet{4, 0, 0, 2}, 
-		"Tunique de l'aventurier": Objet{5, 0, 0, 2}, 
-		"Bottes de l'aventurier": Objet{6, 0, 0, 2}, 
-		"Fourrure de loup": Objet{7, 0, 4, 3}, 
-		"Peau de troll": Objet{8, 0, 7, 3}, 
-		"Cuir de sanglier": Objet{9, 0, 3, 3}, 
-		"Plume de corbeau": Objet{10, 0, 1, 3},
+		"Augmentation d'inventaire": Objet{4, 0, 30, 1}, 
+		"Chapeau de l'aventurier": Objet{5, 0, 0, 2}, 
+		"Tunique de l'aventurier": Objet{6, 0, 0, 2}, 
+		"Bottes de l'aventurier": Objet{7, 0, 0, 2}, 
+		"Fourrure de loup": Objet{8, 0, 4, 3}, 
+		"Peau de troll": Objet{9, 0, 7, 3}, 
+		"Cuir de sanglier": Objet{10, 0, 3, 3}, 
+		"Plume de corbeau": Objet{11, 0, 1, 3},
 	}
 	return initCharacter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
