@@ -5,9 +5,12 @@ import "fmt"
 type Character struct {
 	nom        string
 	classe     string
-	niveau     uint
+	niveau     int
+	exp        int
+	expMax     int
 	pvMax      int
 	pv         int
+	initiative int
 	skill      []string
 	inventaire map[string]Objet
 	inv_taille int
@@ -28,14 +31,17 @@ func inputName() string {
 	}
 }
 
-func initCharacter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]Objet, inv_taille int, argent int, equipement Equipement) Character {
+func initCharacter(nom, classe string, niveau, exp, expMax, pvMax, pv, initiative int, skill []string, inventaire map[string]Objet, inv_taille, argent int, equipement Equipement) Character {
 	return Character{
-		nom:        nom,
-		classe:     classe,
-		niveau:     niveau,
-		pvMax:      pvMax,
-		pv:         pv,
-		skill:      skill,
+		nom:        nom, 
+		classe:     classe, 
+		niveau:     niveau, 
+		exp:        exp, 
+		expMax:     expMax, 
+		pvMax:      pvMax, 
+		pv:         pv, 
+		initiative: initiative, 
+		skill:      skill, 
 		inventaire: inventaire, 
 		inv_taille:	inv_taille, 
 		argent:		argent, 
@@ -54,16 +60,20 @@ func CharacterCreation() Character{
 		}
 	}
 	var pvMax int
+	var initiative int
 	switch c {
 	case "1":
 		c = "Humain"
 		pvMax = 100
+		initiative = 5
 	case "2":
 		c = "Elfe"
 		pvMax = 80
+		initiative = 7
 	case "3":
 		c = "Nain"
 		pvMax = 120
+		initiative = 3
 	}
 	inventaire := map[string]Objet{
 		"Potion de vie": Objet{1, 3, 3, 1}, 
@@ -78,7 +88,7 @@ func CharacterCreation() Character{
 		"Cuir de sanglier": Objet{10, 0, 3, 3}, 
 		"Plume de corbeau": Objet{11, 0, 1, 3},
 	}
-	return initCharacter(n, c, 1, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
+	return initCharacter(n, c, 1, 0, 100, pvMax, pvMax/2, initiative, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
 
 func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool{
@@ -107,6 +117,22 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 		}
 	}
 	return false
+}
+
+func addExp(c *Character, xp int) {
+	c.exp += xp
+	fmt.Println(xp, "d'expérience gagné\n")
+	if c.exp >= c.expMax {
+		c.niveau += 1
+		c.exp -= c.expMax
+		c.expMax += 10
+		c.pvMax += 10
+		c.pv += 10
+		if c.pv > c.pvMax {
+			c.pv = c.pvMax
+		}
+		fmt.Print("Niveau augmenté : Niveau ", c.niveau, "\nExpérience manquante avant le prochain niveau : ", c.expMax-c.exp, "\n\n")
+	}
 }
 
 func isDead(c *Character) {

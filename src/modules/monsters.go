@@ -3,18 +3,22 @@ package modules
 import "fmt"
 
 type Monster struct {
-	nom   string
-	pvMax int
-	pv    int
-	dmg   int
+	nom        string
+	pvMax      int
+	pv         int
+	dmg        int
+	initiative int
+	exp        int
 }
 
-func InitGoblin(nom string, pvMax int, dmg int) Monster {
+func InitGoblin(nom string, pvMax int, dmg int, initiative int, exp int) Monster {
 	return Monster{
-		nom:   nom,
-		pvMax: pvMax, 
-		pv:    pvMax, 
-		dmg:   dmg,
+		nom:        nom,
+		pvMax:      pvMax, 
+		pv:         pvMax, 
+		dmg:        dmg, 
+		initiative: initiative, 
+		exp:        exp,
 	}
 }
 
