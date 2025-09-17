@@ -73,7 +73,7 @@ func CharacterCreation() Character {
 		"Potion de poison":             Objet{2, 0, 6, 1},
 		"Livre de sort : Boule de feu": Objet{3, 0, 25, 1},
 		"Fourrure de loup":             Objet{4, 0, 4, 3},
-		"Peau de troll":                Objet{5, 0, 3, 7},
+		"Peau de troll":                Objet{5, 0, 7, 3},
 		"Cuir de sanglier":             Objet{6, 0, 3, 3},
 		"Plume de corbeau":             Objet{7, 0, 1, 3},
 	}
