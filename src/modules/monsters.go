@@ -1,5 +1,7 @@
 package modules
 
+import "fmt"
+
 type Monster struct {
 	nom   string
 	pvMax int
@@ -10,24 +12,22 @@ type Monster struct {
 func InitGoblin(nom string, pvMax int, dmg int) Monster {
 	return Monster{
 		nom:   nom,
-		pvMax: pvMax,
-		pv:    pvMax,
+		pvMax: pvMax, 
+		pv:    pvMax, 
 		dmg:   dmg,
 	}
 }
 
-func isDeadMnst(mnst Monster) bool {
-	if mnst.pv < 0 {
-		return true
-	} else {
-		return false
-	}
-}
-
-func goblinPattern(c Character, m Monster, count int) {
+func goblinPattern(c *Character, m *Monster, count int) {
+	var dgt int
 	if count%3 == 0 {
-		c.pv = c.pv - (m.dmg * 2)
+		dgt = (m.dmg * 2)
 	} else {
-		c.pv = c.pv - m.dmg
+		dgt = m.dmg
 	}
+	c.pv -= dgt
+	if c.pv < 0 {
+		c.pv = 0
+	}
+	fmt.Print("Goblin inflige ", dgt, " dégâts à ", c.nom, "\nVie de ", c.nom, " : ", c.pv, "/", c.pvMax, "\n\n")
 }

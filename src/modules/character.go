@@ -78,16 +78,39 @@ func CharacterCreation() Character{
 		"Cuir de sanglier": Objet{10, 0, 3, 3}, 
 		"Plume de corbeau": Objet{11, 0, 1, 3},
 	}
-	return initCharacter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
+	return initCharacter(n, c, 1, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
 
-func characterTurn(c Character, m Monster, count int) {
-	
+func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool{
+	joue := false
+	for !joue {
+		var input string
+		fmt.Println("1-Attaquer\n2-Inventaire\n\n0-Menu\n")
+		fmt.Scan(&input)
+		fmt.Print("\n")
+		switch input {
+		case "1":
+			m.pv -= 5
+			if m.pv < 0 {
+				m.pv = 0
+			}
+			fmt.Print(c.nom, " inflige 5 dégâts à ", m.nom, "\nVie de ", m.nom, " : ", m.pv, "/", m.pvMax, "\n\n")
+			joue = true
+		case "2":
+			accessInventory(c,  liste_armure)
+			fmt.Print("\n")
+			joue = true
+		case "0":
+			return true
+		default:
+			fmt.Println("Commande inconnue")
+		}
+	}
+	return false
 }
 
-func isDead(c Character) Character {
-	if c.pv <= 0 {
+func isDead(c *Character) {
+	if c.pv < 1 {
 		c.pv = c.pvMax / 2
 	}
-	return c
 }

@@ -35,10 +35,10 @@ func displayInfo(c *Character) {
   	fmt.Print("Inventaire : ", nb, "/", c.inv_taille, "\n")
 }
 
-func Menu(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
+func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
 	for {
 		var input string
-		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Combat\n\n0-Quitter\n")
+		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Entrainement\n\n0-Quitter\n")
 		fmt.Scan(&input)
 		fmt.Print("\n")
 		switch input {
@@ -53,7 +53,7 @@ func Menu(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equ
 		case "4":
 			forgeron(c, liste_armure)
 		case "5":
-			
+			trainingFight(c, m, liste_armure)
 		case "0":
 			return
 		default:

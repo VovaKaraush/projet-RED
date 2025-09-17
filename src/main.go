@@ -14,11 +14,11 @@ func main() {
 		"Cuir de sanglier", 
 		"Plume de corbeau",
 	}
-	armure := map[string]modules.Objet_Equipement{
+	liste_armure := map[string]modules.Objet_Equipement{
 		"Chapeau de l'aventurier": modules.InitObjetEquipement(10, 1, map[string]int{"Plume de corbeau": 1, "Cuir de sanglier": 1}),
 		"Tunique de l'aventurier": modules.InitObjetEquipement(25, 2, map[string]int{"Fourrure de loup": 2, "Peau de troll": 1}),
 		"Bottes de l'aventurier":  modules.InitObjetEquipement(15, 3, map[string]int{"Fourrure de loup": 1, "Cuir de sanglier": 1}),
 	}
-	//goblin := modules.InitGoblin("Goblin d'entrainement", 40, 5)
-	modules.Menu(&c1, inv_marchand, armure)
+	goblin := modules.InitGoblin("Goblin d'entrainement", 40, 5)
+	modules.Menu(&c1, &goblin, inv_marchand, liste_armure)
 }

@@ -170,6 +170,7 @@ func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 			default:
 				equipArmor(c, liste_armure, keys[index])
 			}
+			fmt.Println("Vous utilisez", keys[index])
 		} else {
 			fmt.Println("Commande inconnue")
 		}
