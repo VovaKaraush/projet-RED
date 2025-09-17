@@ -84,5 +84,5 @@ func isDead(c Character) Character {
 	if c.pv <= 0 {
 		c.pv = c.pvMax / 2
 	}
-	return (c)
+	return c
 }

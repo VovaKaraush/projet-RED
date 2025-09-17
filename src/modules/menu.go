@@ -47,6 +47,8 @@ func Menu(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equ
 			marchand(c, inv_marchand)
 		case "4":
 			forgeron(c, liste_armure)
+		case "5":
+			
 		case "0":
 			return
 		default:

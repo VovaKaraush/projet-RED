@@ -18,5 +18,6 @@ func main() {
 		"Bottes de l'aventurier": modules.InitObjetEquipement(15, 3, map[string]int{"Fourrure de loup": 1, "Cuir de sanglier": 1}),
 	}
 	goblin := modules.InitGoblin("Goblin d'entrainement", 40, 5)
+	
 	modules.Menu(&c1, inv_marchand, armure)
 }
