@@ -80,6 +80,10 @@ func CharacterCreation() Character{
 	return initCharacter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
 
+func characterTurn(c Character, m Monster, count int) {
+	
+}
+
 func isDead(c Character) Character {
 	if c.pv <= 0 {
 		c.pv = c.pvMax / 2
