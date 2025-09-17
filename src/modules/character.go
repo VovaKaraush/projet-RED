@@ -2,13 +2,6 @@ package modules
 
 import "fmt"
 
-type Objet struct {
-	id        int
-	quantite  int
-	prix      int
-	typeObjet int //1 : consommable, 2 : equipement, 3 : autre
-}
-
 type Character struct {
 	nom        string
 	classe     string
@@ -17,7 +10,9 @@ type Character struct {
 	pv         int
 	skill      []string
 	inventaire map[string]Objet
-	argent     int
+	inv_taille int
+	argent	   int
+	equipement Equipement
 }
 
 func inputName() string {
@@ -33,7 +28,7 @@ func inputName() string {
 	}
 }
 
-func initCharacter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]Objet, argent int) Character {
+func initCharacter(nom, classe string, niveau uint, pvMax int, pv int, skill []string, inventaire map[string]Objet, inv_taille int, argent int, equipement Equipement) Character {
 	return Character{
 		nom:        nom,
 		classe:     classe,
@@ -41,12 +36,14 @@ func initCharacter(nom, classe string, niveau uint, pvMax int, pv int, skill []s
 		pvMax:      pvMax,
 		pv:         pv,
 		skill:      skill,
-		inventaire: inventaire,
-		argent:     argent,
+		inventaire: inventaire, 
+		inv_taille:	inv_taille, 
+		argent:		argent, 
+		equipement: equipement,
 	}
 }
 
-func CharacterCreation() Character {
+func CharacterCreation() Character{
 	n := inputName()
 	var c string
 	for c != "1" && c != "2" && c != "3" {
@@ -69,15 +66,18 @@ func CharacterCreation() Character {
 		pvMax = 120
 	}
 	inventaire := map[string]Objet{
-		"Potion de vie":                Objet{1, 3, 3, 1},
-		"Potion de poison":             Objet{2, 0, 6, 1},
-		"Livre de sort : Boule de feu": Objet{3, 0, 25, 1},
-		"Fourrure de loup":             Objet{4, 0, 4, 3},
-		"Peau de troll":                Objet{5, 0, 7, 3},
-		"Cuir de sanglier":             Objet{6, 0, 3, 3},
-		"Plume de corbeau":             Objet{7, 0, 1, 3},
+		"Potion de vie": Objet{1, 3, 3, 1}, 
+		"Potion de poison": Objet{2, 0, 6, 1}, 
+		"Livre de sort : Boule de feu": Objet{3, 0, 25, 1}, 
+		"Chapeau de l'aventurier": Objet{4, 0, 0, 2}, 
+		"Tunique de l'aventurier": Objet{5, 0, 0, 2}, 
+		"Bottes de l'aventurier": Objet{6, 0, 0, 2}, 
+		"Fourrure de loup": Objet{7, 0, 4, 3}, 
+		"Peau de troll": Objet{8, 0, 7, 3}, 
+		"Cuir de sanglier": Objet{9, 0, 3, 3}, 
+		"Plume de corbeau": Objet{10, 0, 1, 3},
 	}
-	return initCharacter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 100)
+	return initCharacter(n, c, 0, pvMax, pvMax/2, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
 
 func isDead(c Character) Character {

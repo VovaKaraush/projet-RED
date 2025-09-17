@@ -7,6 +7,29 @@ import (
 	"time"
 )
 
+type Objet struct {
+	id        int
+	quantite  int
+	prix      int
+	type_objet int //1 : consommable, 2 : equipement, 3 : autre
+}
+
+type Equipement struct {
+	tete  string
+	torse string
+	pieds string
+}
+
+type Objet_Equipement struct {
+	stat		int
+	emplacement int //1 = tete; 2 = torse; 3 = pieds
+	recette 	map[string]int
+}
+
+func InitObjetEquipement(stat int, emplacement int, recette map[string]int) Objet_Equipement{
+	return Objet_Equipement{stat: stat, emplacement: emplacement, recette: recette}
+}
+
 func addInventory(c *Character, objet string) {
 	temp := c.inventaire[objet]
 	temp.quantite += 1
@@ -19,6 +42,14 @@ func removeInventory(c *Character, objet string) {
 		temp.quantite -= 1
 		c.inventaire[objet] = temp
 	}
+}
+
+func inventoryFull(c *Character) bool{
+	nb := 0
+	for _, value := range c.inventaire {
+		nb += value.quantite
+	}
+	return nb == c.inv_taille
 }
 
 func takePot(c *Character) {
@@ -63,7 +94,33 @@ func spellBook(c *Character) {
 	}
 }
 
-func accessInventory(c *Character) {
+func equipArmor(c *Character, liste_armure map[string]Objet_Equipement, armure string) {
+	slot := liste_armure[armure].emplacement
+	switch slot {
+	case 1:
+		if c.equipement.tete != "" {
+			addInventory(c, c.equipement.tete)
+			c.pvMax -= liste_armure[c.equipement.tete].stat
+		}
+		c.equipement.tete = armure
+	case 2:
+		if c.equipement.torse != "" {
+			addInventory(c, c.equipement.torse)
+			c.pvMax -= liste_armure[c.equipement.torse].stat
+		}
+		c.equipement.torse = armure
+	case 3:
+		if c.equipement.pieds != "" {
+			addInventory(c, c.equipement.pieds)
+			c.pvMax -= liste_armure[c.equipement.pieds].stat
+		}
+		c.equipement.pieds = armure
+	}
+	c.pvMax += liste_armure[armure].stat
+	removeInventory(c, armure)
+}
+
+func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 	for {
 		found := false
 		var keys []string
@@ -99,6 +156,8 @@ func accessInventory(c *Character) {
 				poisonPot(c)
 			case "Livre de sort : Boule de feu":
 				spellBook(c)
+			default:
+				equipArmor(c, liste_armure, keys[index])
 			}
 		} else {
 			fmt.Println("Commande inconnue")
