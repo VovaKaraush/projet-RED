@@ -2,9 +2,9 @@ package modules
 
 import (
 	"fmt"
+	"sort"
 	"strconv"
 	"time"
-	"sort"
 )
 
 func addInventory(c *Character, objet string) {
@@ -56,7 +56,7 @@ func spellBook(c *Character) {
 		}
 	}
 	if !found {
-		c.skill = append(c.skill, "Boule de feu")
+		c.skill = append(c.skill, ", Boule de feu")
 		removeInventory(c, "Livre de sort : Boule de feu")
 	} else {
 		fmt.Println("Sort déjà appris")
@@ -92,7 +92,7 @@ func accessInventory(c *Character) {
 		if index == -1 && err == nil {
 			return
 		} else if index > -1 && index < len(keys) {
-			switch keys[index] {                   //appel des fonctions associées aux objets
+			switch keys[index] { //appel des fonctions associées aux objets
 			case "Potion de vie":
 				takePot(c)
 			case "Potion de poison":
