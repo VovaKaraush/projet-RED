@@ -31,13 +31,13 @@ func displayInfo(c *Character) {
 	for _, value := range c.inventaire {
 		nb += value.quantite
 	}
-	fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\nInitiative : ", c.initiative, "\nSkills :", c.skill, "\nArgent : ", c.argent, "\nInventaire : ", nb, "/", c.inv_taille, "\n")
+	fmt.Print("Voici vos stats :\nNom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nVie : ", c.pv, "/", c.pvMax, "\nInitiative : ", c.initiative, "\nSkills :", c.skill, "\nArgent : ", c.argent, "\nInventaire : ", nb, "/", c.inv_taille, "\n")
 }
 
 func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
 	for {
 		var input string
-		fmt.Println("1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Entrainement\n\n0-Quitter\n")
+		fmt.Println("Menu:\n\n1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Entrainement\n\n0-Quitter\n")
 		fmt.Scan(&input)
 		fmt.Print("\n")
 		switch input {
@@ -45,7 +45,7 @@ func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[stri
 			displayInfo(c)
 			fmt.Print("\n")
 		case "2":
-			accessInventory(c,  liste_armure)
+			accessInventory(c, liste_armure)
 			fmt.Print("\n")
 		case "3":
 			marchand(c, inv_marchand)

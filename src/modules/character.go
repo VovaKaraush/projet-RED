@@ -88,7 +88,7 @@ func CharacterCreation() Character{
 		"Cuir de sanglier": Objet{10, 0, 3, 3}, 
 		"Plume de corbeau": Objet{11, 0, 1, 3},
 	}
-	return initCharacter(n, c, 1, 0, 100, pvMax, pvMax/2, initiative, []string{"Coup de poing"}, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
+	return initCharacter(n, c, 1, 0, 100, pvMax, pvMax/2, initiative, []string{"Coup de poing"}, inventaire, 10, 999999, Equipement{tete: "", torse: "", pieds: ""})
 }
 
 func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool{
