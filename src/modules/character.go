@@ -93,6 +93,10 @@ func CharacterCreation() Character{
 
 func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool{
 	joue := false
+	inv := make(map[string]Objet)
+	for key, value := range c.inventaire {
+		inv[key] = value
+	}
 	for !joue {
 		var input string
 		fmt.Println("1-Attaquer\n2-Inventaire\n\n0-Menu\n")
@@ -107,9 +111,14 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 			fmt.Print(c.nom, " inflige 5 dégâts à ", m.nom, "\nVie de ", m.nom, " : ", m.pv, "/", m.pvMax, "\n\n")
 			joue = true
 		case "2":
-			accessInventory(c,  liste_armure)
+			accessInventory(c, m, liste_armure, true)
 			fmt.Print("\n")
-			joue = true
+			for key := range inv {
+				fmt.Println(inv[key].quantite, "/", c.inventaire[key].quantite)
+				if inv[key].quantite != c.inventaire[key].quantite {
+					joue = true
+				}
+			}
 		case "0":
 			return true
 		default:
@@ -127,7 +136,7 @@ func addExp(c *Character, xp int) {
 		c.exp -= c.expMax
 		c.expMax += 10
 		c.pvMax += 10
-		c.pv += 10
+		c.pv = c.pvMax
 		if c.pv > c.pvMax {
 			c.pv = c.pvMax
 		}
@@ -138,5 +147,6 @@ func addExp(c *Character, xp int) {
 func isDead(c *Character) {
 	if c.pv < 1 {
 		c.pv = c.pvMax / 2
+		c.argent -= 10
 	}
 }
