@@ -12,6 +12,7 @@ func trainingFight(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 			}
 			if m.pv < 1 {
 				addExp(c, m.exp)
+				c.argent += 10
 				break
 			}
 			goblinPattern(c, m, count)
@@ -33,6 +34,8 @@ func trainingFight(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 				break
 			}
 			if m.pv < 1 {
+				addExp(c, m.exp)
+				c.argent += 10
 				break
 			}
 		}

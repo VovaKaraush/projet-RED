@@ -45,7 +45,7 @@ func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[stri
 			displayInfo(c)
 			fmt.Print("\n")
 		case "2":
-			accessInventory(c,  liste_armure)
+			accessInventory(c, m, liste_armure, false)
 			fmt.Print("\n")
 		case "3":
 			marchand(c, inv_marchand)

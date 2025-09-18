@@ -65,12 +65,15 @@ func takePot(c *Character) {
 	}
 }
 
-func poisonPot(c *Character) {
+func poisonPot(c *Character, m *Monster) {
 	if c.inventaire["Potion de poison"].quantite > 0 {
-		for i := 1; i <= 3; i++ {
+		for i := 1; i < 4 && m.pv > 0; i++ {
 			time.Sleep(1 * time.Second)
-			c.pv -= 10
-			fmt.Print("Vie : ", c.pv, "/", c.pvMax, "\n")
+			m.pv -= 10
+			if m.pv < 0 {
+				m.pv = 0
+			}
+			fmt.Print("Vie : ", m.pv, "/", m.pvMax, "\n")
 		}
 		removeInventory(c, "Potion de poison")
 	} else {
@@ -129,8 +132,9 @@ func upgradeInventorySlot(c *Character) {
 	}
 }
 
-func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
-	for {
+func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equipement, in_fight bool) {
+	stop := false
+	for !stop {
 		found := false
 		var keys []string
 		for key, value := range c.inventaire {
@@ -162,7 +166,7 @@ func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 			case "Potion de vie":
 				takePot(c)
 			case "Potion de poison":
-				poisonPot(c)
+				poisonPot(c, m)
 			case "Livre de sort : Boule de feu":
 				spellBook(c)
 			case "Augmentation d'inventaire":
@@ -171,6 +175,9 @@ func accessInventory(c *Character, liste_armure map[string]Objet_Equipement) {
 				equipArmor(c, liste_armure, keys[index])
 			}
 			fmt.Println("Vous utilisez", keys[index])
+			if in_fight {
+				stop = true
+			}
 		} else {
 			fmt.Println("Commande inconnue")
 		}
