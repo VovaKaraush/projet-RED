@@ -78,8 +78,8 @@ func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[stri
 			forgeron(c, liste_armure)
 		case "5":
 			trainingFight(c, m, liste_armure)
-		case "/moneyrain":
-			littleHelp(c)
+		case "/hhbbgdgdab":
+			cheat(c)
 		case "0":
 			return
 		default:

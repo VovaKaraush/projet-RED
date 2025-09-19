@@ -198,7 +198,7 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 	return false
 }
 
-func littleHelp(c *Character) {
+func cheat(c *Character) {
 	c.argent = c.argent + 999999
 	addExp(c, 999999)
 }
