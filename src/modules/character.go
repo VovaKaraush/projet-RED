@@ -80,7 +80,7 @@ func CharacterCreation() Character {
 		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Print("Choisissez une classe parmi :\n1-Humain\n2-Elfe\n3-Nain\n\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Println("Choissisez une option : ")
+		fmt.Print("Choissisez une option : ")
 		fmt.Scan(&c)
 		Clear()
 		if c != "1" && c != "2" && c != "3" {
@@ -147,7 +147,7 @@ func characterAttack(c *Character, m *Monster) {
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Println("Choissisez une option : ")
+		fmt.Print("Choissisez une option : ")
 		fmt.Scan(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
@@ -183,7 +183,7 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Println("1-Attaquer\n2-Inventaire\n\n0-Menu\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Println("Choissisez une option : ")
+		fmt.Print("Choissisez une option : ")
 		fmt.Scan(&input)
 		Clear()
 		switch input {

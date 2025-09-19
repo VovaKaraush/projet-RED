@@ -56,7 +56,7 @@ func displayInfo(c *Character) {
 		}
 		fmt.Print("Argent : ", c.argent, "\nInventaire : ", nb, "/", c.inv_taille, "\n\n0-Retour\n\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Println("Choissisez une option : ")
+		fmt.Print("Choissisez une option : ")
 		fmt.Scan(&input)
 		Clear()
 	}
@@ -68,7 +68,7 @@ func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[stri
 		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Println("Menu:\n\n1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Entrainement\n\n0-Quitter\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Println("Choissisez une option : ")
+		fmt.Print("Choissisez une option : ")
 		fmt.Scan(&input)
 		Clear()
 		switch input {
