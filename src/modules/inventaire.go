@@ -152,6 +152,7 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 				}
 			}
 		}
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		if !found {
 			fmt.Println("L'inventaire est vide")
 		}
@@ -162,6 +163,7 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, "\n")
 		}
 		fmt.Println("\n0-Retour\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		fmt.Scanln(&input)
 		Clear()
 		index, err := strconv.Atoi(input)

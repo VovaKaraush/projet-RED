@@ -9,6 +9,7 @@ import (
 func buy(c *Character, inv_marchand []string) {
 	for {
 		i := 1
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		for _, o := range inv_marchand {
 			if c.inventaire[o].type_objet != 2 {
 				fmt.Print(i, "-", o, "\n")
@@ -16,6 +17,7 @@ func buy(c *Character, inv_marchand []string) {
 			}
 		}
 		fmt.Println("\n0-Retour\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		var input string
 		fmt.Scanln(&input)
 		Clear()
@@ -54,6 +56,7 @@ func sell(c *Character, liste_armure map[string]Objet_Equipement) {
 				}
 			}
 		}
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		if !found {
 			fmt.Println("L'inventaire est vide")
 		}
@@ -64,6 +67,7 @@ func sell(c *Character, liste_armure map[string]Objet_Equipement) {
 			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, "\n")
 		}
 		fmt.Println("\n0-Retour\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		fmt.Scanln(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
@@ -95,7 +99,9 @@ func sell(c *Character, liste_armure map[string]Objet_Equipement) {
 func marchand(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
 	var input string
 	for {
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Println("1-Acheter\n2-Vendre\n\n0-Retour")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		fmt.Scanln(&input)
 		Clear()
 		switch input {
@@ -122,14 +128,15 @@ func forgeron(c *Character, liste_armure map[string]Objet_Equipement) {
 		sort.Slice(keys, func(i, j int) bool {
 			return c.inventaire[keys[i]].id < c.inventaire[keys[j]].id
 		})
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		for i, o := range keys {
-			fmt.Print(i+1, "-", o, " | ")
+			fmt.Print(i+1, "-", o, "\n")
 			for key, value := range liste_armure[o].recette {
-				fmt.Print(key, " * ", value, " | ")
+				fmt.Print("     ", key, " * ", value, "\n")
 			}
-			fmt.Print("\n")
 		}
 		fmt.Println("\n0-Retour\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		var input string
 		fmt.Scanln(&input)
 		Clear()

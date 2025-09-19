@@ -47,13 +47,15 @@ func displayInfo(c *Character) {
 		for _, value := range c.inventaire {
 			nb += value.quantite
 		}
-		fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nExpérience : ", c.exp, "/", c.expMax, "\nVie : ", c.pv, "/", c.pvMax, "\nInitiative : ", c.initiative, "\nMana : ", c.mana, "/", c.manaMax, "\nSkills : | ")
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
+		fmt.Print("Nom : ", c.nom, "\nClasse : ", c.classe, "\nNiveau : ", c.niveau, "\nExpérience : ", c.exp, "/", c.expMax, "\nVie : ", c.pv, "/", c.pvMax, "\nInitiative : ", c.initiative, "\nMana : ", c.mana, "/", c.manaMax, "\nSkills :\n")
 		for key, value := range c.skill {
 			if value.possede {
-				fmt.Print(key, " | ")
+				fmt.Print("     ", key, "\n")
 			}
 		}
-		fmt.Print("\nArgent : ", c.argent, "\nInventaire : ", nb, "/", c.inv_taille, "\n\n0-Retour\n\n")
+		fmt.Print("Argent : ", c.argent, "\nInventaire : ", nb, "/", c.inv_taille, "\n\n0-Retour\n\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		fmt.Scanln(&input)
 		Clear()
 	}
@@ -62,7 +64,9 @@ func displayInfo(c *Character) {
 func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
 	for {
 		var input string
+		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Println("Menu:\n\n1-Infos\n2-Inventaire\n3-Marchand\n4-Forgeron\n5-Entrainement\n\n0-Quitter\n")
+		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
 		fmt.Scanln(&input)
 		Clear()
 		switch input {
