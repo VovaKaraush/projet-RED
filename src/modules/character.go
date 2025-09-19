@@ -206,7 +206,7 @@ func littleHelp(c *Character) {
 func addExp(c *Character, xp int) {
 	c.exp += xp
 	fmt.Println(xp, "d'expérience gagné\n")
-	if c.exp >= c.expMax {
+	for c.exp >= c.expMax {
 		c.niveau += 1
 		c.exp -= c.expMax
 		c.expMax += 10
