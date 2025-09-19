@@ -200,6 +200,7 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 
 func littleHelp(c *Character) {
 	c.argent = c.argent + 999999
+	addExp(c, 999999)
 }
 
 func addExp(c *Character, xp int) {
