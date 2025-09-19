@@ -186,7 +186,7 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 			default:
 				equipArmor(c, liste_armure, keys[index])
 			}
-			fmt.Println("Vous utilisez", keys[index], "\n")
+			fmt.Println("Vous avez utilisé", keys[index], "\n")
 			if in_fight {
 				stop = true
 			}
