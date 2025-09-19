@@ -6,7 +6,7 @@ import (
 	"sort"
 )
 
-func marchand(c *Character, inv_marchand []string) {
+func buy(c *Character, inv_marchand []string) {
 	for {
 		i := 1
 		for _, o := range inv_marchand {
@@ -17,8 +17,8 @@ func marchand(c *Character, inv_marchand []string) {
 		}
 		fmt.Println("\n0-Retour\n")
 		var input string
-		fmt.Scan(&input)
-		fmt.Print("\n")
+		fmt.Scanln(&input)
+		Clear()
 		index, err := strconv.Atoi(input)
 		if index == 0 && err == nil {
 			return
@@ -36,6 +36,76 @@ func marchand(c *Character, inv_marchand []string) {
 				fmt.Println("Pas assez d'argent")
 			}
 		} else {
+			fmt.Println("Commande inconnue")
+		}
+	}
+}
+
+func sell(c *Character, liste_armure map[string]Objet_Equipement) {
+	var input string
+	for {
+		found := false
+		var keys []string
+		for key, value := range c.inventaire {
+			if value.quantite > 0 {
+				keys = append(keys, key)
+				if !found {
+					found = true
+				}
+			}
+		}
+		if !found {
+			fmt.Println("L'inventaire est vide")
+		}
+		sort.Slice(keys, func(i, j int) bool {
+			return c.inventaire[keys[i]].id < c.inventaire[keys[j]].id
+		})
+		for i, o := range keys {
+			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, "\n")
+		}
+		fmt.Println("\n0-Retour\n")
+		fmt.Scanln(&input)
+		Clear()
+		index, err := strconv.Atoi(input)
+		index--
+		if index == -1 && err == nil {
+			return
+		} else if index > -1 && index < len(keys) {
+			p := 0
+			if c.inventaire[keys[index]].type_objet == 2 {
+				for key, value := range liste_armure[keys[index]].recette {
+					p += (c.inventaire[key].prix * value) / 2
+				}
+			} else {
+				p = c.inventaire[keys[index]].prix / 2
+			}
+			c.argent += p
+			if p < 1 {
+				fmt.Print("Vous avez gagné ", p, " pièces\n")
+			} else {
+				fmt.Print("Vous avez gagné ", p, " pièce\n\n")
+			}
+			removeInventory(c, keys[index])
+		} else {
+			fmt.Println("Commande inconnue")
+		}
+	}
+}
+
+func marchand(c *Character, inv_marchand []string, liste_armure map[string]Objet_Equipement) {
+	var input string
+	for {
+		fmt.Println("1-Acheter\n2-Vendre\n\n0-Retour")
+		fmt.Scanln(&input)
+		Clear()
+		switch input {
+		case "1":
+			buy(c, inv_marchand)
+		case "2":
+			sell(c, liste_armure)
+		case "0":
+			return
+		default:
 			fmt.Println("Commande inconnue")
 		}
 	}
@@ -61,7 +131,8 @@ func forgeron(c *Character, liste_armure map[string]Objet_Equipement) {
 		}
 		fmt.Println("\n0-Retour\n")
 		var input string
-		fmt.Scan(&input)
+		fmt.Scanln(&input)
+		Clear()
 		index, err := strconv.Atoi(input)
 		index--
 		if index == -1 && err == nil {

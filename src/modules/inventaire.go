@@ -65,15 +65,26 @@ func takePot(c *Character) {
 	}
 }
 
+func manaPot(c *Character) {
+	if c.inventaire["Potion de mana"].quantite > 0 {
+		c.mana += c.manaMax / 2
+		if c.mana > c.manaMax {
+			c.mana = c.manaMax
+		}
+	} else {
+		fmt.Println("Pas de potion de mana dans l'inventaire")
+	}
+}
+
 func poisonPot(c *Character, m *Monster) {
 	if c.inventaire["Potion de poison"].quantite > 0 {
 		for i := 1; i < 4 && m.pv > 0; i++ {
 			time.Sleep(1 * time.Second)
-			m.pv -= 10
+			m.pv -= 5
 			if m.pv < 0 {
 				m.pv = 0
 			}
-			fmt.Print("Vie : ", m.pv, "/", m.pvMax, "\n")
+			fmt.Print("Vie de ", m.nom, " : ", m.pv, "/", m.pvMax, "\n")
 		}
 		removeInventory(c, "Potion de poison")
 	} else {
@@ -82,15 +93,10 @@ func poisonPot(c *Character, m *Monster) {
 }
 
 func spellBook(c *Character) {
-	found := false
-	for _, s := range c.skill {
-		if s == "Boule de feu" {
-			found = true
-			break
-		}
-	}
-	if !found {
-		c.skill = append(c.skill, ", Boule de feu")
+	if !c.skill["Boule de feu"].possede {
+		temp := c.skill["Boule de feu"]
+		temp.possede = true
+		c.skill["Boule de feu"] = temp
 		removeInventory(c, "Livre de sort : Boule de feu")
 	} else {
 		fmt.Println("Sort déjà appris")
@@ -134,6 +140,7 @@ func upgradeInventorySlot(c *Character) {
 
 func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equipement, in_fight bool) {
 	stop := false
+	var input string
 	for !stop {
 		found := false
 		var keys []string
@@ -155,8 +162,8 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, "\n")
 		}
 		fmt.Println("\n0-Retour\n")
-		var input string
-		fmt.Scan(&input)
+		fmt.Scanln(&input)
+		Clear()
 		index, err := strconv.Atoi(input)
 		index--
 		if index == -1 && err == nil {
@@ -165,6 +172,8 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 			switch keys[index] { //appel des fonctions associées aux objets
 			case "Potion de vie":
 				takePot(c)
+			case "Potion de mana":
+				manaPot(c)
 			case "Potion de poison":
 				poisonPot(c, m)
 			case "Livre de sort : Boule de feu":
@@ -174,7 +183,7 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 			default:
 				equipArmor(c, liste_armure, keys[index])
 			}
-			fmt.Println("Vous utilisez", keys[index])
+			fmt.Println("Vous utilisez", keys[index], "\n")
 			if in_fight {
 				stop = true
 			}

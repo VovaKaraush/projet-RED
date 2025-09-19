@@ -6,6 +6,7 @@ func main() {
 	c1 := modules.CharacterCreation()
 	inv_marchand := []string{
 		"Potion de vie", 
+		"Potion de mana", 
 		"Potion de poison", 
 		"Livre de sort : Boule de feu", 
 		"Augmentation d'inventaire", 
@@ -20,5 +21,6 @@ func main() {
 		"Bottes de l'aventurier":  modules.InitObjetEquipement(15, 3, map[string]int{"Fourrure de loup": 1, "Cuir de sanglier": 1}),
 	}
 	goblin := modules.InitGoblin("Goblin d'entrainement", 40, 5, 5, 10)
+	modules.Clear()
 	modules.Menu(&c1, &goblin, inv_marchand, liste_armure)
 }
