@@ -9,9 +9,10 @@ import (
 func buy(c *Character, inv_marchand []string) {
 	for {
 		i := 1
+		fmt.Println("Vous avez ", c.argent, " pieces d'or.\n")
 		for _, o := range inv_marchand {
 			if c.inventaire[o].type_objet != 2 {
-				fmt.Print(i, "-", o, "\n")
+				fmt.Print(i, "-", o, " | Prix : ", c.inventaire[o].prix, "\n")
 				i += 1
 			}
 		}
@@ -61,7 +62,7 @@ func sell(c *Character, liste_armure map[string]Objet_Equipement) {
 			return c.inventaire[keys[i]].id < c.inventaire[keys[j]].id
 		})
 		for i, o := range keys {
-			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, "\n")
+			fmt.Print(i+1, "-", o, " * ", c.inventaire[o].quantite, " | Prix : ", c.inventaire[o].prix, "\n")
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Scanln(&input)
