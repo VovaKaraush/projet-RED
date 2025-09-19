@@ -2,14 +2,14 @@ package modules
 
 import (
 	"fmt"
-	"strconv"
 	"sort"
+	"strconv"
 )
 
 type Skill struct {
 	id      int
-	dmg  	int
-	mana 	int
+	dmg     int
+	mana    int
 	possede bool
 }
 
@@ -27,7 +27,7 @@ type Character struct {
 	skill      map[string]Skill
 	inventaire map[string]Objet
 	inv_taille int
-	argent	   int
+	argent     int
 	equipement Equipement
 }
 
@@ -46,34 +46,34 @@ func inputName() string {
 
 func initCharacter(nom, classe string, niveau, exp, expMax, pvMax, pv, initiative, mana, manaMax int, skill map[string]Skill, inventaire map[string]Objet, inv_taille, argent int, equipement Equipement) Character {
 	return Character{
-		nom:        nom, 
-		classe:     classe, 
-		niveau:     niveau, 
-		exp:        exp, 
-		expMax:     expMax, 
-		pvMax:      pvMax, 
-		pv:         pv, 
-		initiative: initiative, 
-		mana:       mana, 
-		manaMax:    manaMax, 
-		skill:      skill, 
-		inventaire: inventaire, 
-		inv_taille:	inv_taille, 
-		argent:		argent, 
+		nom:        nom,
+		classe:     classe,
+		niveau:     niveau,
+		exp:        exp,
+		expMax:     expMax,
+		pvMax:      pvMax,
+		pv:         pv,
+		initiative: initiative,
+		mana:       mana,
+		manaMax:    manaMax,
+		skill:      skill,
+		inventaire: inventaire,
+		inv_taille: inv_taille,
+		argent:     argent,
 		equipement: equipement,
 	}
 }
 
-func InitSkill (id, dmg, mana int, possede bool) Skill{
+func InitSkill(id, dmg, mana int, possede bool) Skill {
 	return Skill{
-		id:      id, 
-		dmg: 	 dmg, 
-		mana: 	 mana, 
+		id:      id,
+		dmg:     dmg,
+		mana:    mana,
 		possede: possede,
 	}
 }
 
-func CharacterCreation() Character{
+func CharacterCreation() Character {
 	n := inputName()
 	var c string
 	for c != "1" && c != "2" && c != "3" {
@@ -105,22 +105,22 @@ func CharacterCreation() Character{
 		manaMax = 80
 	}
 	inventaire := map[string]Objet{
-		"Potion de vie": Objet{1, 3, 3, 1}, 
-		"Potion de mana": Objet{2, 0, 10, 1}, 
-		"Potion de poison": Objet{3, 0, 6, 1}, 
-		"Livre de sort : Boule de feu": Objet{4, 0, 25, 1}, 
-		"Augmentation d'inventaire": Objet{5, 0, 30, 1}, 
-		"Chapeau de l'aventurier": Objet{3, 0, 0, 2}, 
-		"Tunique de l'aventurier": Objet{7, 0, 0, 2}, 
-		"Bottes de l'aventurier": Objet{8, 0, 0, 2}, 
-		"Fourrure de loup": Objet{9, 0, 4, 3}, 
-		"Peau de troll": Objet{10, 0, 7, 3}, 
-		"Cuir de sanglier": Objet{11, 0, 3, 3}, 
-		"Plume de corbeau": Objet{12, 0, 1, 3},
+		"Potion de vie":                Objet{1, 3, 3, 1},
+		"Potion de mana":               Objet{2, 0, 10, 1},
+		"Potion de poison":             Objet{3, 0, 6, 1},
+		"Livre de sort : Boule de feu": Objet{4, 0, 25, 1},
+		"Augmentation d'inventaire":    Objet{5, 0, 30, 1},
+		"Chapeau de l'aventurier":      Objet{3, 0, 0, 2},
+		"Tunique de l'aventurier":      Objet{7, 0, 0, 2},
+		"Bottes de l'aventurier":       Objet{8, 0, 0, 2},
+		"Fourrure de loup":             Objet{9, 0, 4, 3},
+		"Peau de troll":                Objet{10, 0, 7, 3},
+		"Cuir de sanglier":             Objet{11, 0, 3, 3},
+		"Plume de corbeau":             Objet{12, 0, 1, 3},
 	}
 	skill := map[string]Skill{
-		"Coup de poing": Skill{1, 5, 0, true}, 
-		"Boule de feu": Skill{2, 20, 40, false},
+		"Coup de poing": Skill{1, 5, 0, true},
+		"Boule de feu":  Skill{2, 20, 40, false},
 	}
 	return initCharacter(n, c, 1, 0, 100, pvMax, pvMax/2, initiative, manaMax, manaMax, skill, inventaire, 10, 100, Equipement{tete: "", torse: "", pieds: ""})
 }
@@ -139,7 +139,7 @@ func characterAttack(c *Character, m *Monster) {
 		})
 		fmt.Print("Mana : ", c.mana, "/", c.manaMax, "\n\n")
 		for i, o := range keys {
-			fmt.Print(i+1, "-", o,  "\n")
+			fmt.Print(i+1, "-", o, "\n")
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Scanln(&input)
@@ -166,7 +166,7 @@ func characterAttack(c *Character, m *Monster) {
 	}
 }
 
-func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool{
+func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equipement) bool {
 	joue := false
 	inv := make(map[string]Objet)
 	for key, value := range c.inventaire {
@@ -196,6 +196,10 @@ func characterTurn(c *Character, m *Monster, liste_armure map[string]Objet_Equip
 		}
 	}
 	return false
+}
+
+func littleHelp(c *Character) {
+	c.argent = c.argent + 999999
 }
 
 func addExp(c *Character, xp int) {

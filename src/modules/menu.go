@@ -2,21 +2,21 @@ package modules // ce package va comporter tous les affichages
 
 import (
 	"fmt"
-	"strings"
 	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 )
 
 func Clear() {
-    var cmd *exec.Cmd
-    if runtime.GOOS == "windows" {
-        cmd = exec.Command("cmd", "/c", "cls")
-    } else {
-        cmd = exec.Command("clear")
-    }
-    cmd.Stdout = os.Stdout
-    cmd.Run()
+	var cmd *exec.Cmd
+	if runtime.GOOS == "windows" {
+		cmd = exec.Command("cmd", "/c", "cls")
+	} else {
+		cmd = exec.Command("clear")
+	}
+	cmd.Stdout = os.Stdout
+	cmd.Run()
 }
 
 func nameCheck(s string) bool {
@@ -78,6 +78,8 @@ func Menu(c *Character, m *Monster, inv_marchand []string, liste_armure map[stri
 			forgeron(c, liste_armure)
 		case "5":
 			trainingFight(c, m, liste_armure)
+		case "/moneyrain":
+			littleHelp(c)
 		case "0":
 			return
 		default:
