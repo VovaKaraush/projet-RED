@@ -2,8 +2,8 @@ package modules
 
 import (
 	"fmt"
-	"strconv"
 	"sort"
+	"strconv"
 )
 
 func buy(c *Character, inv_marchand []string) {
@@ -26,7 +26,7 @@ func buy(c *Character, inv_marchand []string) {
 			index--
 			if c.inventaire[inv_marchand[index]].prix <= c.argent {
 				if !inventoryFull(c) {
-					fmt.Print(inv_marchand[index], "\n\n")
+					fmt.Print("Vous avez acheté : ", inv_marchand[index], "\n\n")
 					addInventory(c, inv_marchand[index])
 					c.argent -= c.inventaire[inv_marchand[index]].prix
 				} else {
