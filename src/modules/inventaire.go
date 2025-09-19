@@ -164,7 +164,8 @@ func accessInventory(c *Character, m *Monster, liste_armure map[string]Objet_Equ
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Scanln(&input)
+		fmt.Println("Choissisez une option : ")
+		fmt.Scan(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
 		index--

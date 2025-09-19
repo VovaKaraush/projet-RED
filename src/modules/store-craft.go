@@ -19,8 +19,9 @@ func buy(c *Character, inv_marchand []string) {
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
+		fmt.Println("Choissisez une option : ")
 		var input string
-		fmt.Scanln(&input)
+		fmt.Scan(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
 		if index == 0 && err == nil {
@@ -69,7 +70,8 @@ func sell(c *Character, liste_armure map[string]Objet_Equipement) {
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Scanln(&input)
+		fmt.Println("Choissisez une option : ")
+		fmt.Scan(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
 		index--
@@ -103,7 +105,8 @@ func marchand(c *Character, inv_marchand []string, liste_armure map[string]Objet
 		fmt.Println("╭─┉─⚜️─┉──┉─¡! • !¡─┉──┉─⚜️─┉─╮\n")
 		fmt.Println("1-Acheter\n2-Vendre\n\n0-Retour")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
-		fmt.Scanln(&input)
+		fmt.Println("Choissisez une option : ")
+		fmt.Scan(&input)
 		Clear()
 		switch input {
 		case "1":
@@ -138,8 +141,9 @@ func forgeron(c *Character, liste_armure map[string]Objet_Equipement) {
 		}
 		fmt.Println("\n0-Retour\n")
 		fmt.Println("└┉───┉───┉──┉─ • ─┉──┉───┉───┉┘")
+		fmt.Println("Choissisez une option : ")
 		var input string
-		fmt.Scanln(&input)
+		fmt.Scan(&input)
 		Clear()
 		index, err := strconv.Atoi(input)
 		index--
